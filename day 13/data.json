@@ -1,0 +1,15 @@
+{
+  "students": [
+    {
+      "name": "udin"
+    },
+    {
+      "name": "yanto"
+    }
+  ],
+  "products": [
+    {
+      "pname": "bunga"
+    }
+  ]
+}
