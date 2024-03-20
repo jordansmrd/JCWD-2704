@@ -1,0 +1,45 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CSS Style</title>
+
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      h2 {
+        color: red;
+      }
+      .white {
+        color: white;
+      }
+      .mobil {
+        color: chocolate;
+      }
+
+      #avanza {
+        color: aqua;
+      }
+
+      a[href] {
+        color: yellow;
+        /* attribute selector */
+      }
+    </style>
+  </head>
+  <body>
+    <h2>ini h2</h2>
+
+    <p style="color: green">Hola ini hijau</p>
+    <p>ini bukan hijau</p>
+
+    <p class="mobil white">ini menggunakan class</p>
+    <p class="mobil" id="avanza">ini menggunakan id</p>
+    <p class="mobil" id="avanza" style="color: blueviolet">
+      ini menggunakan inline
+    </p>
+    <a href="#">ini anchor</a>
+  </body>
+</html>
