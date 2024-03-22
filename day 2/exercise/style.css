@@ -1,0 +1,102 @@
+/** @format */
+
+nav {
+  display: flex;
+  position: sticky;
+  top: 0;
+  justify-content: space-between;
+  font-weight: 500;
+  background-color: black;
+  z-index: 2;
+}
+
+.flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+span a {
+  text-decoration: none;
+  text-transform: uppercase;
+  color: white;
+  padding: 12px 24px !important;
+  margin: 0;
+  cursor: pointer;
+}
+
+a:hover {
+  background-color: #ccc !important;
+  color: black;
+}
+.red:hover {
+  background-color: #f44336 !important;
+}
+
+.carousel img {
+  max-width: 2000px;
+  aspect-ratio: 2/1;
+  object-fit: cover;
+  width: 100%;
+  object-position: 0% 20%;
+}
+.carousel {
+  position: relative;
+  justify-content: center;
+}
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+  line-height: 1.5;
+  font-size: 15px;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+.caption {
+  position: absolute;
+  bottom: 0;
+  color: white;
+  z-index: 1;
+  padding: 32px 16px;
+}
+
+h3 {
+  margin: 10px 0px;
+}
+
+.desc {
+  padding: 64px 16px;
+  max-width: 768px;
+  width: 100%;
+}
+
+.title {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin: 10px 0px;
+  letter-spacing: 4px;
+}
+
+.subtitle {
+  color: #666666;
+}
+
+.paragraph {
+  text-align: justify;
+}
+
+.members {
+  padding: 32px 0px;
+}
+
+.member {
+  width: 256px;
+}
+
+.member img {
+  aspect-ratio: 1;
+  width: 154px;
+  object-fit: cover;
+  border-radius: 4px;
+  margin-bottom: 16px;
+}

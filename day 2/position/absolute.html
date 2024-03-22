@@ -1,0 +1,47 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>absolute</title>
+    <style>
+      div.relative {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        /* border: 3px solid #73ad21; */
+        background: red;
+      }
+      div.absolute {
+        background: blue;
+        position: absolute;
+        /* top: 80px; */
+        right: 0;
+        top: 0;
+        /* width: 100px; */
+        /* height: 100px; */
+        padding: 50px;
+        border: 3px solid #73ad21;
+        text-align: center;
+        color: white;
+      }
+      .bulat {
+        width: 200px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+        background-color: aqua;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>position absolute</h2>
+    <p>here is absolute example</p>
+    <div class="relative">
+      <!-- the div element has position relative -->
+      <div class="bulat"></div>
+      <div class="absolute">69</div>
+    </div>
+  </body>
+</html>
