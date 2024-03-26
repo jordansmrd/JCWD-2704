@@ -1,0 +1,88 @@
+<!-- @format -->
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HTML + Javascript DOM</title>
+    <script>
+      function updateText() {
+        const element = document.getElementById("myElement");
+        console.log(element);
+        element.innerText = "Updated Text";
+        element.innerHTML = "<div> Updated Text </div>";
+      }
+      let angka = 0;
+      function tambah() {
+        // const elements = document.querySelectorAll(".angka");
+        const elements = document.getElementsByClassName("angka");
+        console.log(document.getElementsByTagName("test"), "check");
+        const tambahin = prompt("mau ditambah berapa?");
+        if (isNaN(tambahin)) return alert("bukan angka");
+        angka = angka + Number(tambahin);
+
+        // elements[0].innerHTML = 100;
+        for (let i = 0; i < elements.length; i++) {
+          elements[i].innerHTML = angka;
+        }
+
+        alert("angka berubah jadi " + angka);
+
+        // elements.forEach((element) => {
+        //   element.innerHTML = plus;
+        // });
+
+        // element.innerHTML = ++angka;
+      }
+      function tambahP() {
+        const element = document.getElementById("myElement");
+        const p = prompt("isi content");
+        const newParagraph = document.createElement("p");
+        newParagraph.textContent = p;
+        // document.body.appendChild(newParagraph);
+        element.appendChild(newParagraph);
+      }
+
+      function removeElement() {
+        const elementRemove = document.getElementById("child-element");
+        const parentElement = elementRemove.parentNode;
+        parentElement.removeChild(elementRemove);
+      }
+
+      function changeColor() {
+        const element = document.getElementById("myElement");
+        element.setAttribute("data-custom-attr", "value");
+        element.style.color = "blue";
+        element.style.fontSize = "18px";
+      }
+    </script>
+  </head>
+  <body>
+    <h1 tag="test" id="myElement">
+      Original Text
+
+      <p id="child-element">ini child</p>
+    </h1>
+    <button onclick="updateText()">Update Text</button>
+
+    <h2 class="angka">0</h2>
+    <h2 class="angka">0</h2>
+    <button onclick="tambah()">tambah</button>
+
+    <button onclick="tambahP()">tambah paragraph</button>
+    <button onclick="removeElement()">hapus element</button>
+    <button onclick="changeColor()">ganti warna</button>
+
+    <button id="myButton">click</button>
+
+    <h1>hello</h1>
+
+    <script>
+      const myButton = document.getElementById("myButton");
+      myButton.addEventListener("click", function () {
+        alert("button clicked!");
+      });
+    </script>
+  </body>
+</html>

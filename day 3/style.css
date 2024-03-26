@@ -315,7 +315,7 @@ a {
   padding: 24px 8px 16px;
 }
 
-@media screen and (min-width: 481px) {
+@media screen and (min-width: 1025px) {
   .mobile-nav,
   .mobile-kategori,
   .mobile-banner {
