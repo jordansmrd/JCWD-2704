@@ -1,0 +1,9 @@
+/** @format */
+div .red {
+  /* color: red; */
+  @apply text-green-200;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
