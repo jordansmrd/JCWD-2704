@@ -1,0 +1,11 @@
+/** @format */
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body,
+html {
+  margin: 0;
+  background: linear-gradient(90deg, #072061, #3f0c60) !important;
+}
