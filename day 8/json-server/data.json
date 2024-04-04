@@ -1,0 +1,45 @@
+{
+  "superheroes": [
+    {
+      "id": 1,
+      "name": "Batman",
+      "color": "Black"
+    },
+    {
+      "id": 2,
+      "name": "suparman 2",
+      "color": "Blue blue"
+    },
+    {
+      "name": "flashh",
+      "address": "jkt",
+      "id": 3
+    },
+    {
+      "name": "spiderman",
+      "color": "red blue",
+      "id": 4
+    },
+    {
+      "name": "naruto",
+      "id": 5
+    },
+    {
+      "name": "sasukeeeee",
+      "color": "dark blue",
+      "id": 6
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "email": "user@mail.com",
+      "password": 1234
+    },
+    {
+      "id": 2,
+      "email": "user2@mail.com",
+      "password": 1234
+    }
+  ]
+}
