@@ -1,15 +1,12 @@
 /** @format */
 
 import React, { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import {
   Heading,
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -23,10 +20,10 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogContent,
-  AlertDialogOverlay,
-  AlertDialogCloseButton,
   useDisclosure,
 } from "@chakra-ui/react";
+import * as Yup from "yup";
+import { useFormik } from "formik";
 
 import axios from "axios";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
@@ -39,6 +36,40 @@ function App() {
     name: "",
     color: "",
   };
+
+  const formik = useFormik({
+    initialValues: init,
+    validationSchema: Yup.object().shape({
+      name: Yup.string()
+        .required("ga boleh kosong")
+        .min(5, "ga boleh kurang dari 5"),
+      color: Yup.string().required(),
+    }),
+    onSubmit: async (values) => {
+      try {
+        if (!values.id) await axios.post(url, values);
+        else await axios.patch(url + "/" + values.id, values);
+        fetchData();
+        formik.resetForm();
+      } catch (error) {
+        console.log(error);
+      }
+      // alert("hello");
+    },
+  });
+
+  // const checker = (e) => {
+  //   e.preventDefault();
+  //   const name = document.getElementById("name").value;
+  //   const color = document.getElementById("color").value;
+
+  //   formik.setValues({
+  //     name,
+  //     color,
+  //   });
+
+  //   formik.handleSubmit();
+  // };
 
   const [inputHandler, setInputHandler] = useState({ ...init });
 
@@ -76,7 +107,7 @@ function App() {
   const handleEdit = async (id) => {
     try {
       const { data } = await axios.get(url + "/" + id);
-      setInputHandler({ ...data });
+      formik.setFieldValue({ ...data });
     } catch (error) {
       console.log(error);
     }
@@ -171,7 +202,7 @@ function App() {
         </Table>
       </TableContainer>
 
-      <form onSubmit={addData}>
+      <form onSubmit={formik.handleSubmit}>
         <Box
           display={"flex"}
           flexDir={"column"}
@@ -183,15 +214,25 @@ function App() {
           <Input
             placeholder="name"
             id="name"
-            value={inputHandler.name}
-            onChange={handleChange}
+            // value={inputHandler.name}
+            // value={formik.values.name}
+            // onChange={handleChange}
+            // onChange={formik.handleChange}
+            // onChange={(e) => {
+            //   formik.setFieldValue("name", e.target.value);
+            // }}
           ></Input>
+          <Box color={"red"}>{formik.errors.name}</Box>
           <Input
             placeholder="color"
             id="color"
-            value={inputHandler.color}
-            onChange={handleChange}
+            // value={inputHandler.color}
+            // value={formik.values.color}
+            // onChange={handleChange}
+            // onChange={formik.handleChange}
           ></Input>
+          <Box color={"red"}>{formik.errors.color}</Box>
+
           <Button type="submit">Submit</Button>
         </Box>
       </form>
