@@ -20,6 +20,7 @@ export function GET(req: Request, context: IContext) {
 
 export function DELETE(req: Request, context: IContext) {
   const { userid } = context.params;
+
   const idx = data.users.findIndex((u) => u.id.toString() == userid);
 
   data.users.splice(idx, 1);
