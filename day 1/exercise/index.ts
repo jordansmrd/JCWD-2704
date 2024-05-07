@@ -16,6 +16,8 @@ app.use(express.json()); // supaya bisa baca json body
 app.use(express.urlencoded()); //supaya bisa baca json urlencoded
 
 app.get("/", (req: Request, res: Response, next: NextFunction) => {
+  console.log(req.headers["api-key"]);
+
   res.send("welcome to my api");
 });
 
