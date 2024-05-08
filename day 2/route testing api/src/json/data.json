@@ -1,0 +1,20 @@
+{
+  "expenses": [
+    {
+      "id": 1,
+      "title": "makan di noah",
+      "type": "expense",
+      "category": "food",
+      "date": "2024/1/1",
+      "nominal": 20000
+    },
+    {
+      "id": 2,
+      "title": "naik MRT ke sarinah",
+      "type": "expense",
+      "category": "transport",
+      "date": "2024/1/1",
+      "nominal": 15000
+    }
+  ]
+}
