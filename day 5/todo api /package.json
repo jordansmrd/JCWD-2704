@@ -1,0 +1,27 @@
+{
+  "name": "todo-api-",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "description": "To install dependencies:",
+  "version": "1.0.0",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@types/express": "^4.17.21",
+    "bun-types": "^1.1.8",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mysql2": "^3.9.7",
+    "typescript": "^5.0.0",
+    "undici-types": "^5.26.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
