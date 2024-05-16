@@ -10,6 +10,11 @@ class BranchRouter extends EntityRouter {
   }
   private initializedRoutes() {
     this.router.get("/", branchController.getAll.bind(branchController));
+    this.router.get(
+      "/name-location",
+      branchController.getByNameOrLocation.bind(branchController)
+    );
+
     this.router.get("/:id", branchController.getById.bind(branchController));
     this.router.post("/", branchController.create.bind(branchController));
     this.router.patch(

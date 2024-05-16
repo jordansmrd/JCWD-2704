@@ -3,6 +3,7 @@
 import express, { Application, NextFunction, Request, Response } from "express";
 import { PORT } from "./configs/config";
 import branchRouter from "./routers/branch.router";
+import studentRouter from "./routers/student.router";
 
 export class App {
   private app: Application;
@@ -19,6 +20,7 @@ export class App {
     });
 
     this.app.use("/branches", branchRouter.getRouter());
+    this.app.use("/students", studentRouter.getRouter());
   }
   private errorHandler() {
     this.app.use(

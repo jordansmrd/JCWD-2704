@@ -5,8 +5,8 @@ import { Prisma } from "@prisma/client";
 
 export class EntityService {
   public model: Prisma.BranchDelegate;
-  constructor(model: Prisma.BranchDelegate) {
-    this.model = model;
+  constructor(model: Prisma.BranchDelegate | Prisma.StudentDelegate) {
+    this.model = model as Prisma.BranchDelegate;
   }
   async getAll(req: Request) {
     return await this.model.findMany();
