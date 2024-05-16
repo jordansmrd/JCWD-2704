@@ -12,4 +12,5 @@ export interface IService {
   update: (req: Request) => Promise<TBranch>;
   getByFullname?: (req: Request) => Promise<Student[]>;
   getByNameAndLocation?: (req: Request) => Promise<TBranch[]>;
+  getData?: (req: Request) => Promise<TBranch[]>;
 }

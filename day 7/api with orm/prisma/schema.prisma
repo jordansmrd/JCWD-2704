@@ -19,21 +19,81 @@ model Branch {
   location  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  manager   Manager?
+  class     Class[]
 
   @@index([name])
   @@map("branches")
 }
 
 model Student {
-  id          Int      @id @default(autoincrement())
-  fullname    String
-  email       String
-  password    String
-  isGraduated Boolean
-  program     String
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id               Int                @id @default(autoincrement())
+  fullname         String
+  email            String
+  password         String
+  isGraduated      Boolean
+  program          String
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  MapStudentClass  MapStudentClass[]
+  MapLecturerClass MapLecturerClass[]
 
   @@index([fullname])
   @@map("students")
+}
+
+model Manager {
+  id     Int    @id @default(autoincrement())
+  name   String
+  branch Branch @relation(fields: [id], references: [id])
+
+  @@index([name])
+  @@map("managers")
+}
+
+model Class {
+  id        Int      @id @default(autoincrement())
+  name      String
+  startAt   DateTime
+  endAt     DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  branch    Branch   @relation(fields: [branchId], references: [id])
+
+  MapStudentClass MapStudentClass[]
+  branchId        Int
+}
+
+model MapStudentClass {
+  studentId Int
+  classId   Int
+  student   Student @relation(fields: [studentId], references: [id])
+  class     Class   @relation(fields: [classId], references: [id])
+
+  @@id([studentId, classId])
+  @@map("mapStudentClasses")
+}
+
+model Lecturer {
+  id               Int                @id @default(autoincrement())
+  username         String
+  fullname         String
+  email            String
+  password         String
+  isActive         Boolean
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  MapLecturerClass MapLecturerClass[]
+
+  @@map("lecturers")
+}
+
+model MapLecturerClass {
+  studentId  Int
+  lecturerId Int
+  student    Student  @relation(fields: [studentId], references: [id])
+  lecturer   Lecturer @relation(fields: [lecturerId], references: [id])
+
+  @@id([studentId, lecturerId])
+  @@map("mapLecturerClasses")
 }

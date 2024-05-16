@@ -24,6 +24,20 @@ export class BranchController extends EntityController {
       next(error);
     }
   }
+
+  async getData(req: Request, res: Response, next: NextFunction) {
+    try {
+      if (this.service.getData) {
+        const data = await this.service.getData(req);
+        res.send({
+          message: "fetch data",
+          data,
+        });
+      }
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new BranchController(branchService);
