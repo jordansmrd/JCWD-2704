@@ -8,7 +8,7 @@ export type TUser = {
   email?: string;
   password?: string;
   fullname?: string;
-  gender?: Gender;
+  gender?: Gender | null;
   is_verified?: boolean;
   bio?: string | null;
   avatar_url?: string;

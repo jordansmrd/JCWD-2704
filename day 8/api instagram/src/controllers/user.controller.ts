@@ -6,10 +6,13 @@ import userService from "../services/user.service";
 class UserController {
   async login(req: Request, res: Response, next: NextFunction) {
     try {
-      const token = await userService.userLogin(req);
-      res.cookie("auth", token).send({
-        message: "user login",
-      });
+      const { accessToken, refreshToken } = await userService.userLogin(req);
+      res
+        .cookie("access_token", accessToken)
+        .cookie("refresh_token", refreshToken)
+        .send({
+          message: "user login",
+        });
     } catch (error) {
       next(error);
     }
@@ -31,6 +34,26 @@ class UserController {
       await userService.editUser(req);
       res.send({
         message: "user has been edited",
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  async getByUsername(req: Request, res: Response, next: NextFunction) {
+    try {
+      const data = await userService.getUserByUsername(req);
+      res.send({
+        message: "user login",
+        data,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  async validateUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      res.send({
+        message: "success",
       });
     } catch (error) {
       next(error);

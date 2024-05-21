@@ -29,7 +29,7 @@ model User {
   avatar_url     String        @default("default_avatar.jpg")
   createdAt      DateTime      @default(now())
   updatedAt      DateTime      @updatedAt
-  gender         Gender
+  gender         Gender?
   Post           Post[]
   Comment        Comment[]
   Like           Like[]

@@ -10,7 +10,6 @@ import { createToken } from "../libs/jwt";
 class UserService {
   async userLogin(req: Request) {
     const { username_email, password } = req.body;
-
     const where: Prisma.UserScalarWhereWithAggregatesInput = {
       OR: [
         { email: String(username_email) },
@@ -19,6 +18,7 @@ class UserService {
     };
     const select: Prisma.UserSelectScalar = {
       id: true,
+      username: true,
       email: true,
       fullname: true,
       avatar_url: true,
@@ -37,7 +37,9 @@ class UserService {
 
     delete data.password;
 
-    return createToken(data, "10");
+    const accessToken = createToken(data, "1hr");
+    const refreshToken = createToken({ id: data.id }, "20hr");
+    return { accessToken, refreshToken };
   }
   async userRegister(req: Request) {
     const { email, password, username, fullname, gender } = req.body;
@@ -65,8 +67,12 @@ class UserService {
   }
   async getUserByUsername(req: Request) {
     const { username } = req.params;
-    const data: TUser = await prisma.user.findFirst({
-      include: {
+    const data: TUser = await prisma.user.findUnique({
+      select: {
+        id: true,
+        username: true,
+        gender: true,
+        avatar_url: true,
         Post: true,
       },
       where: {
