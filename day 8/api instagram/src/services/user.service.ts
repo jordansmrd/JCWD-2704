@@ -37,7 +37,7 @@ class UserService {
 
     delete data.password;
 
-    return createToken(data);
+    return createToken(data, "10");
   }
   async userRegister(req: Request) {
     const { email, password, username, fullname, gender } = req.body;

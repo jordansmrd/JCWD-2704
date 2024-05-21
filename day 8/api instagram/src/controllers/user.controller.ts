@@ -7,9 +7,8 @@ class UserController {
   async login(req: Request, res: Response, next: NextFunction) {
     try {
       const token = await userService.userLogin(req);
-      res.cookie("auth2", token).send({
+      res.cookie("auth", token).send({
         message: "user login",
-        token,
       });
     } catch (error) {
       next(error);
