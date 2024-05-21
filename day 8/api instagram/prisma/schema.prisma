@@ -1,0 +1,88 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Gender {
+  male
+  female
+}
+
+model User {
+  id             String        @id @default(cuid())
+  username       String        @unique
+  email          String        @unique
+  password       String
+  fullname       String
+  is_verified    Boolean       @default(false)
+  bio            String?
+  avatar_url     String        @default("default_avatar.jpg")
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  gender         Gender
+  Post           Post[]
+  Comment        Comment[]
+  Like           Like[]
+  User_Following User_Follow[] @relation("following")
+  User_Follower  User_Follow[] @relation("follower")
+
+  @@index([username, email])
+  @@map("users")
+}
+
+model Post {
+  id        String    @id @default(cuid())
+  caption   String?
+  user_id   String
+  user      User      @relation(fields: [user_id], references: [id])
+  image     String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Comment   Comment[]
+  Like      Like[]
+
+  @@index([image])
+  @@map("posts")
+}
+
+model Comment {
+  user_id String
+  post_id String
+  user    User   @relation(fields: [user_id], references: [id])
+  post    Post   @relation(fields: [post_id], references: [id])
+  comment String
+
+  @@id([user_id, post_id])
+  @@index([comment])
+  @@map("comments")
+}
+
+model Like {
+  user_id String
+  post_id String
+  user    User   @relation(fields: [user_id], references: [id])
+  post    Post   @relation(fields: [post_id], references: [id])
+
+  @@id([user_id, post_id])
+  @@map("likes")
+}
+
+model User_Follow {
+  following_id String
+  follower_id  String
+  following    User   @relation("following", fields: [following_id], references: [id])
+  follower     User   @relation("follower", fields: [follower_id], references: [id])
+
+  @@id([following_id, follower_id])
+  @@map("user_follow")
+}
