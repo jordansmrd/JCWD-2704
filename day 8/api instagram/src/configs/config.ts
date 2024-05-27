@@ -9,3 +9,6 @@ export const corsOptions: CorsOptions = {
   origin: ["http://localhost:3000"],
   credentials: true,
 };
+
+export const user = process.env.nodemailer_email || "";
+export const pass = process.env.nodemailer_pass || "";

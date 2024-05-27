@@ -3,6 +3,7 @@
 import type { Post, Prisma } from "@prisma/client";
 import { prisma } from "../libs/prisma";
 import { Request } from "express";
+import sharp from "sharp";
 
 class PostService {
   async getPosts(): Promise<Post[]> {
@@ -33,10 +34,14 @@ class PostService {
   }
 
   async createPost(req: Request): Promise<Post> {
-    const { image, caption } = req.body;
+    const { caption } = req.body;
+
+    const { file } = req;
+
+    if (!file) throw new Error("No File Uploaded");
 
     const data: Prisma.PostCreateInput = {
-      image,
+      image: file.filename,
       caption,
       user: {
         connect: {
@@ -48,7 +53,31 @@ class PostService {
       data,
     });
   }
-  //  middleware > controller > service
+
+  async createPostWithBlob(req: Request) {
+    const { caption } = req.body;
+
+    const { file } = req;
+
+    const buffer = await sharp(req.file?.buffer).png().toBuffer();
+    console.log(buffer);
+
+    if (!file) throw new Error("No File Uploaded");
+
+    const data: Prisma.Post2CreateInput = {
+      image: "test",
+      image_blob: buffer,
+      caption,
+      user: {
+        connect: {
+          id: req.user?.id,
+        },
+      },
+    };
+    return await prisma.post2.create({
+      data,
+    });
+  }
   async deletePost(req: Request): Promise<Post> {
     const { id } = req.params;
     return await prisma.post.delete({
@@ -56,6 +85,14 @@ class PostService {
     });
   }
 
+  async render(req: Request) {
+    const data = await prisma.post2.findUnique({
+      where: {
+        id: req.params.id,
+      },
+    });
+    return data?.image_blob;
+  }
   async update(req: Request): Promise<Post> {
     const { id } = req.params;
     const data: Prisma.PostUpdateInput = { ...req.body };

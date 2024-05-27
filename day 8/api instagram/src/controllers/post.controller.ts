@@ -36,6 +36,16 @@ class PostController {
       next(error);
     }
   }
+  async createWithBlob(req: Request, res: Response, next: NextFunction) {
+    try {
+      await postService.createPostWithBlob(req);
+      return res.send({
+        message: "post has been created",
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       await postService.update(req);
@@ -54,6 +64,15 @@ class PostController {
       });
     } catch (error) {
       next(error);
+    }
+  }
+  async renderAvatar(req: Request, res: Response, next: NextFunction) {
+    try {
+      const blob = await postService.render(req);
+      res.set("Content-type", "image/png");
+      res.send(blob);
+    } catch (err) {
+      next(err);
     }
   }
 }

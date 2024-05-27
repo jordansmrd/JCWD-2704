@@ -26,6 +26,14 @@ export class App {
     });
     this.app.use("/users", userRouter.getRouter());
     this.app.use("/posts", postRouter.getRouter());
+    this.app.use(
+      "/public/avatars",
+      express.static(`${__dirname}/public/images/avatars`)
+    );
+    this.app.use(
+      "/public/posts",
+      express.static(`${__dirname}/public/images/posts`)
+    );
   }
 
   private errorHandler() {

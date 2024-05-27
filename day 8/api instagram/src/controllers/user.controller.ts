@@ -24,8 +24,6 @@ class UserController {
         message: "new user has been register",
       });
     } catch (error) {
-      console.log("test");
-
       next(error);
     }
   }
@@ -42,6 +40,7 @@ class UserController {
   async getByUsername(req: Request, res: Response, next: NextFunction) {
     try {
       const data = await userService.getUserByUsername(req);
+
       res.send({
         message: "user login",
         data,
@@ -52,9 +51,20 @@ class UserController {
   }
   async validateUser(req: Request, res: Response, next: NextFunction) {
     try {
-      res.send({
+      const { access_token, is_verified } = await userService.validate(req);
+      res.cookie("access_token", access_token).send({
         message: "success",
+        is_verified,
       });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async sendVerif(req: Request, res: Response, next: NextFunction) {
+    try {
+      await userService.verifyUser(req);
+      res.end("success");
     } catch (error) {
       next(error);
     }

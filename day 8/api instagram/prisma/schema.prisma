@@ -31,10 +31,12 @@ model User {
   updatedAt      DateTime      @updatedAt
   gender         Gender?
   Post           Post[]
+  otp            Int?          @unique
   Comment        Comment[]
   Like           Like[]
   User_Following User_Follow[] @relation("following")
   User_Follower  User_Follow[] @relation("follower")
+  Post2          Post2[]
 
   @@index([username, email])
   @@map("users")
@@ -55,12 +57,30 @@ model Post {
   @@map("posts")
 }
 
+model Post2 {
+  id         String    @id @default(cuid())
+  caption    String?
+  user_id    String
+  user       User      @relation(fields: [user_id], references: [id])
+  image      String
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
+  Comment    Comment[]
+  Like       Like[]
+  image_blob Bytes     @db.LongBlob
+
+  @@index([image])
+  @@map("posts2")
+}
+
 model Comment {
   user_id String
   post_id String
-  user    User   @relation(fields: [user_id], references: [id])
-  post    Post   @relation(fields: [post_id], references: [id])
+  user    User    @relation(fields: [user_id], references: [id])
+  post    Post    @relation(fields: [post_id], references: [id])
   comment String
+  Post2   Post2?  @relation(fields: [post2Id], references: [id])
+  post2Id String?
 
   @@id([user_id, post_id])
   @@index([comment])
@@ -70,8 +90,10 @@ model Comment {
 model Like {
   user_id String
   post_id String
-  user    User   @relation(fields: [user_id], references: [id])
-  post    Post   @relation(fields: [post_id], references: [id])
+  user    User    @relation(fields: [user_id], references: [id])
+  post    Post    @relation(fields: [post_id], references: [id])
+  Post2   Post2?  @relation(fields: [post2Id], references: [id])
+  post2Id String?
 
   @@id([user_id, post_id])
   @@map("likes")
